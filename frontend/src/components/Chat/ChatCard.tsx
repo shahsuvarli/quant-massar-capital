@@ -5,7 +5,7 @@ import { Chat } from "@/types/chat";
 const chatData: Chat[] = [
   {
     avatar: "/images/user/user-01.png",
-    name: "Devid Heilo",
+    name: "Elvin Shahsuvarli",
     text: "How are you?",
     time: 12,
     textCount: 3,
@@ -79,9 +79,8 @@ const ChatCard = () => {
                 }}
               />
               <span
-                className={`absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-white ${
-                  chat.dot === 6 ? "bg-meta-6" : `bg-meta-${chat.dot}`
-                } `}
+                className={`absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-white ${chat.dot === 6 ? "bg-meta-6" : `bg-meta-${chat.dot}`
+                  } `}
               ></span>
             </div>
 

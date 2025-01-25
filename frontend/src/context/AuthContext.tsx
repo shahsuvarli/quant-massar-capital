@@ -21,19 +21,25 @@ export type AuthContextType = {
 export const AuthContext = createContext({} as AuthContextType);
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState(null);
+    const fakeData = {
+        access_token: 'fake-token',
+        token_type: 'bearer',
+        expires_in: 3600,
+    }
+    const [user, setUser] = useState<any>(fakeData);
     const router = useRouter();
 
     const login = async (username: string, password: string): Promise<void> => {
         try {
-            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/token`, { username, password }, {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-            });
-            axios.defaults.headers.common['Authorization'] = `Bearer ${data.access_token}`;
-            localStorage.setItem('token', data.access_token);
-            setUser(data);
+            // const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/token`, { username, password }, {
+            //     headers: {
+            //         'Content-Type': 'application/x-www-form-urlencoded',
+            //     },
+            // });
+
+            // axios.defaults.headers.common['Authorization'] = `Bearer ${fakeData.access_token}`;
+            localStorage.setItem('token', fakeData.access_token);
+            setUser(fakeData);
             router.push('/');
         } catch (error) {
             console.error('Login failed', error);

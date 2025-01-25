@@ -19,7 +19,6 @@ const SignIn: FC = () => {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    console.log("username", username, password);
     login(username, password);
   }
   return (

@@ -1,0 +1,7 @@
+.env
+backend/db.sqlite3
+backend/.env
+backend/app/.env
+backend/app/.env.development
+backend/app/.env.production
+

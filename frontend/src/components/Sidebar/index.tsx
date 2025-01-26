@@ -65,16 +65,8 @@ const menuGroups = [
         ),
         label: "Hedge Funds",
         route: "/hedge-funds",
-        children: null,
+        children: [{ label: "Funds", route: "/hedge-funds" }, { label: "Portfolios", route: "/hedge-funds/portfolios" }],
       },
-      {
-        icon: (
-          <MdSupervisedUserCircle className="fill-current" size={17} />
-        ),
-        label: "Investors",
-        route: "/investors",
-        children: null,
-      }
     ],
   },
 ];

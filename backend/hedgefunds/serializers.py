@@ -4,6 +4,8 @@ from accounts.serializers import UserSerializer
 
 
 class HedgeFundCompanySerializer(serializers.ModelSerializer):
+    manager = UserSerializer()
+
     class Meta:
         model = HedgeFundCompany
         fields = '__all__'
@@ -16,11 +18,13 @@ class FundsAllSerializer(serializers.ModelSerializer):
         model = Fund
         fields = '__all__'
 
+
 class PortfolioFundSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Fund
         fields = '__all__'
+
 
 class PortfolioAllSerializer(serializers.ModelSerializer):
     fund = PortfolioFundSerializer()

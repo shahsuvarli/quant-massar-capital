@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Fund, Portfolio
-from .serializers import FundsAllSerializer, PortfolioAllSerializer
+from .models import Fund, Portfolio, HedgeFundCompany
+from .serializers import FundsAllSerializer, PortfolioAllSerializer, HedgeFundCompanySerializer
 from drf_yasg.utils import swagger_auto_schema
 
 
@@ -19,4 +19,11 @@ class PortfoliosApiView(APIView):
     def get(self, request):
         portfolios = Portfolio.objects.all()
         serializer = PortfolioAllSerializer(portfolios, many=True)
+        return Response(serializer.data)
+
+class HedgeFundCompanyApiView(APIView):
+    @swagger_auto_schema(operation_description="Retrieve all hedge fund companies", responses={200: HedgeFundCompanySerializer(many=True)})
+    def get(self, request):
+        hedge_fund_companies = HedgeFundCompany.objects.all()
+        serializer = HedgeFundCompanySerializer(hedge_fund_companies, many=True)
         return Response(serializer.data)

@@ -65,7 +65,7 @@ const menuGroups = [
         ),
         label: "Hedge Funds",
         route: "/hedge-funds",
-        children: [{ label: "Funds", route: "/hedge-funds" }, { label: "Portfolios", route: "/hedge-funds/portfolios" }],
+        children: [{ label: "Funds", route: "/hedge-funds" }, { label: "Portfolios", route: "/hedge-funds/portfolios" }, { label: "Companies", route: "/hedge-funds/companies" }],
       },
     ],
   },

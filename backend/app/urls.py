@@ -29,5 +29,6 @@ urlpatterns = [
          cache_timeout=0), name="schema-redoc"),
     path("api/accounts/", include("accounts.urls")),  # Your API URLs
     path("api/hedgefunds/", include("hedgefunds.urls")),  # Your API URLs
+    path("api/trading/", include("trading.urls")),  # Your API URLs
     path('admin/', admin.site.urls),
 ]

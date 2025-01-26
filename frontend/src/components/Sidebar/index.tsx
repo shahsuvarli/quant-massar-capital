@@ -7,7 +7,7 @@ import Image from "next/image";
 import SidebarItem from "@/components/Sidebar/SidebarItem";
 import ClickOutside from "@/components/ClickOutside";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { MdDashboard, MdSpaceDashboard, MdSupervisedUserCircle } from "react-icons/md";
+import { MdDashboard, MdDashboardCustomize, MdSpaceDashboard, MdSupervisedUserCircle } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 
 interface SidebarProps {
@@ -66,6 +66,14 @@ const menuGroups = [
         label: "Hedge Funds",
         route: "/hedge-funds",
         children: [{ label: "Funds", route: "/hedge-funds" }, { label: "Portfolios", route: "/hedge-funds/portfolios" }, { label: "Companies", route: "/hedge-funds/companies" }],
+      },
+      {
+        icon: (
+          <MdDashboardCustomize className="fill-current" size={17} />
+        ),
+        label: "Trading",
+        route: "/trading/trades",
+        children: [{ label: "Trades", route: "/trading/trades" }, { label: "Instruments", route: "/trading/instruments" }],
       },
     ],
   },

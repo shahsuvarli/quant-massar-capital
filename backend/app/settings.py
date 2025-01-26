@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'trading',
     'risk',
     'payments',
+    "rest_framework",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [

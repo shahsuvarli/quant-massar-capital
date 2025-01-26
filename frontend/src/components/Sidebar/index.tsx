@@ -7,7 +7,7 @@ import Image from "next/image";
 import SidebarItem from "@/components/Sidebar/SidebarItem";
 import ClickOutside from "@/components/ClickOutside";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { MdDashboard, MdDashboardCustomize, MdSpaceDashboard, MdSupervisedUserCircle } from "react-icons/md";
+import { MdDashboard, MdDashboardCustomize, MdElectricRickshaw, MdPayment, MdSpaceDashboard, MdSupervisedUserCircle } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 
 interface SidebarProps {
@@ -75,6 +75,21 @@ const menuGroups = [
         route: "/trading/trades",
         children: [{ label: "Trades", route: "/trading/trades" }, { label: "Instruments", route: "/trading/instruments" }],
       },
+      {
+        icon: (
+          <MdElectricRickshaw className="fill-current" size={17} />
+        ),
+        label: "Risk Metrics",
+        route: "/risk/risk-metrics",
+        children: null,
+      }, {
+        icon: (
+          <MdPayment className="fill-current" size={17} />
+        ),
+        label: "Payments",
+        route: "/payments/payments-info",
+        children: null,
+      }
     ],
   },
 ];

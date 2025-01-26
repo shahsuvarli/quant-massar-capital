@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Fund, HedgeFundCompany
+from .models import Fund, HedgeFundCompany, Portfolio
+from accounts.serializers import UserSerializer
 
 
 class HedgeFundCompanySerializer(serializers.ModelSerializer):
@@ -13,4 +14,18 @@ class FundsAllSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Fund
+        fields = '__all__'
+
+class PortfolioFundSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Fund
+        fields = '__all__'
+
+class PortfolioAllSerializer(serializers.ModelSerializer):
+    fund = PortfolioFundSerializer()
+    manager = UserSerializer()
+
+    class Meta:
+        model = Portfolio
         fields = '__all__'

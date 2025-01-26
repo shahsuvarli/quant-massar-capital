@@ -1,5 +1,7 @@
 from django.db import models
 from hedgefunds.models import Portfolio
+import uuid
+
 
 class Instrument(models.Model):
     SYMBOL_TYPES = [
@@ -10,6 +12,7 @@ class Instrument(models.Model):
         ('CRYPTO', 'Cryptocurrency'),
     ]
 
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200)
     symbol = models.CharField(max_length=10, unique=True)
     instrument_type = models.CharField(max_length=10, choices=SYMBOL_TYPES)
@@ -18,14 +21,18 @@ class Instrument(models.Model):
     def __str__(self):
         return f"{self.name} ({self.symbol})"
 
+
 class Trade(models.Model):
     TRADE_TYPES = [
         ('BUY', 'Buy'),
         ('SELL', 'Sell'),
     ]
-
-    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, related_name="trades")
-    instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE, related_name="trades")
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+    portfolio = models.ForeignKey(
+        Portfolio, on_delete=models.CASCADE, related_name="trades")
+    instrument = models.ForeignKey(
+        Instrument, on_delete=models.CASCADE, related_name="trades")
     trade_type = models.CharField(max_length=4, choices=TRADE_TYPES)
     quantity = models.DecimalField(max_digits=20, decimal_places=4)
     price = models.DecimalField(max_digits=20, decimal_places=4)

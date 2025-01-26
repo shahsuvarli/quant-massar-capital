@@ -9,16 +9,24 @@ class InstrumentSerializer(serializers.ModelSerializer):
         model = Instrument
         fields = '__all__'
 
+
 class TradePortfolioSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = Portfolio
         fields = '__all__'
+
 
 class TradeSerializer(serializers.ModelSerializer):
     portfolio = TradePortfolioSerializer()
     instrument = InstrumentSerializer()
 
+    class Meta:
+        model = Trade
+        fields = '__all__'
+
+
+class TradeCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trade
         fields = '__all__'

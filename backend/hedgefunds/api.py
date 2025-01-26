@@ -9,7 +9,7 @@ from drf_yasg.utils import swagger_auto_schema
 class FundsApiView(APIView):
     @swagger_auto_schema(operation_description="Retrieve all funds", responses={200: FundsAllSerializer(many=True)})
     def get(self, request):
-        funds = Fund.objects.all()
+        funds = Fund.objects.order_by("-inception_date")[0:20]
         serializer = FundsAllSerializer(funds, many=True)
         return Response(serializer.data)
 
@@ -17,13 +17,16 @@ class FundsApiView(APIView):
 class PortfoliosApiView(APIView):
     @swagger_auto_schema(operation_description="Retrieve all portfolios", responses={200: PortfolioAllSerializer(many=True)})
     def get(self, request):
-        portfolios = Portfolio.objects.all()
+        portfolios = Portfolio.objects.order_by("-created_at")[0:20]
         serializer = PortfolioAllSerializer(portfolios, many=True)
         return Response(serializer.data)
+
 
 class HedgeFundCompanyApiView(APIView):
     @swagger_auto_schema(operation_description="Retrieve all hedge fund companies", responses={200: HedgeFundCompanySerializer(many=True)})
     def get(self, request):
-        hedge_fund_companies = HedgeFundCompany.objects.all()
-        serializer = HedgeFundCompanySerializer(hedge_fund_companies, many=True)
+        hedge_fund_companies = HedgeFundCompany.objects.order_by(
+            "-inception_date")[0:20]
+        serializer = HedgeFundCompanySerializer(
+            hedge_fund_companies, many=True)
         return Response(serializer.data)

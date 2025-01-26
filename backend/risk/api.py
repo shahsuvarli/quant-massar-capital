@@ -12,6 +12,6 @@ class RiskMetricApiView(APIView):
     )
     def get(self, request):
         # Get the user's risk metrics
-        risk_metrics = RiskMetric.objects.all()[0:20]
+        risk_metrics = RiskMetric.objects.order_by("-as_of_date")[0:20]
         serializer = RiskMetricSerializer(risk_metrics, many=True)
         return Response(serializer.data)

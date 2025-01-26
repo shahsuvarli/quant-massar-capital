@@ -1,9 +1,10 @@
 from django.urls import path
-from .api import TradesApiView, intrumentsApiView
+from .api import TradesApiView, IntrumentsApiView, TradeApiView
 
 app_name = 'trading'
 
 urlpatterns=[
-    path('instruments/', intrumentsApiView.as_view(), name='instrument-list'),
+    path('instruments/', IntrumentsApiView.as_view(), name='instrument-list'),
     path('trades/', TradesApiView.as_view(), name='trade-list'),
+    path('trade/', TradeApiView.as_view(), name='trade-create'),
 ]

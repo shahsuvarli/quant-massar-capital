@@ -27,6 +27,7 @@ urlpatterns = [
          cache_timeout=0), name="schema-swagger-ui"),
     path("redoc/", schema_view.with_ui("redoc",
          cache_timeout=0), name="schema-redoc"),
-    path("api/", include("accounts.urls")),  # Your API URLs
+    path("api/accounts/", include("accounts.urls")),  # Your API URLs
+    path("api/hedgefunds/", include("hedgefunds.urls")),  # Your API URLs
     path('admin/', admin.site.urls),
 ]

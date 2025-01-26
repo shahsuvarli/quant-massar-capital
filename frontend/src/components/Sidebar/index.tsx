@@ -7,7 +7,8 @@ import Image from "next/image";
 import SidebarItem from "@/components/Sidebar/SidebarItem";
 import ClickOutside from "@/components/ClickOutside";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { MdDashboard, MdSpaceDashboard } from "react-icons/md";
+import { MdDashboard, MdSpaceDashboard, MdSupervisedUserCircle } from "react-icons/md";
+import { FaUser } from "react-icons/fa";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -49,6 +50,14 @@ const menuGroups = [
         label: "Dashboard",
         route: "#",
         children: [{ label: "eCommerce", route: "/" }],
+      },
+      {
+        icon: (
+          <FaUser className="fill-current" size={17} />
+        ),
+        label: "User profiles",
+        route: "/users",
+        children: null,
       },
       // {
       //   icon: (

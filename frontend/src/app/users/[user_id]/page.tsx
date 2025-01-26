@@ -10,7 +10,7 @@ export const metadata: Metadata = {
         "This is Next.js Profile page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
 };
 
-const Profile = ({ params: { id } }: { params: { id: number } }) => {
+const Profile = ({ params: { user_id } }: { params: { user_id: number } }) => {
 
     return (
         <DefaultLayout>

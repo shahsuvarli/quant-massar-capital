@@ -45,14 +45,6 @@ export const columns: ColumnDef<Trade>[] = [
         accessorKey: "trade_date",
         header: "Trade Date",
     },
-    // {
-    //     accessorKey: "executed_at",
-    //     header: "Executed At",
-    // },
-    {
-        accessorKey: "trade_type",
-        header: "Trade Type",
-    },
     {
         accessorKey: "portfolio.name",
         header: "Portfolio",

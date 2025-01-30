@@ -23,13 +23,12 @@ const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
           <li className="font-medium text-primary">{pageName}</li>
         </ol>
       </nav> */}
-      {/* <Button
+      <Button
         size="default"
         onClick={() => console.log("clicked")}
-      // onClick={() => console.log("clicked")}
       >
         <IoIosAddCircleOutline /> Add New
-      </Button> */}
+      </Button>
     </div>
   );
 };

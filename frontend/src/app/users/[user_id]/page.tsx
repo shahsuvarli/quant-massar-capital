@@ -102,7 +102,29 @@ const Profile = ({ params: { user_id } }: { params: { user_id: number } }) => {
                             </TableBody>
                         </Table>
                     </div>
-
+                    <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark p-2 flex flex-col items-start justify-center gap-5">
+                        <p className="text-gray-700 text-md font-semibold">Your Transactions</p>
+                        <Table className="w-full">
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead className="w-[100px]">ID</TableHead>
+                                    <TableHead>Name</TableHead>
+                                    <TableHead>Created at</TableHead>
+                                    {/* <TableHead>Method</TableHead> */}
+                                    <TableHead className="text-right">Fund</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell className="font-medium">INV001</TableCell>
+                                    <TableCell>Paid</TableCell>
+                                    <TableCell>Paid</TableCell>
+                                    {/* <TableCell>Credit Card</TableCell> */}
+                                    <TableCell className="text-right">$250.00</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </div>
                 </div>
             </div>
         </DefaultLayout >

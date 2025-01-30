@@ -1,14 +1,21 @@
 from rest_framework import serializers
-from .models import UserProfile, User
+from .models import User
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'phone_number', 'is_trader', 'is_investor']
+        fields = ['id', 'username', 'email',
+                  'phone_number', 'is_trader', 'is_investor', 'account_balance', 'risk_tolerance']
 
 
-class UserProfilesGetSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserProfile
-        fields = '__all__'
+        model = User
+        fields = ['id', 'username', 'email', 'password']
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            validated_data['username'], validated_data['email'], validated_data['password'])
+        return user

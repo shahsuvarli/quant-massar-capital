@@ -10,19 +10,6 @@ class User(AbstractUser):
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     is_trader = models.BooleanField(default=False)
     is_investor = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.username
-
-
-class UserProfile(models.Model):
-    id = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name="profile")
-    bio = models.TextField(null=True, blank=True)
-    country = models.CharField(max_length=100, null=True, blank=True)
-    date_of_birth = models.DateField(null=True, blank=True)
     account_balance = models.DecimalField(
         max_digits=20, decimal_places=2, default=0.00)
     risk_tolerance = models.CharField(
@@ -32,7 +19,7 @@ class UserProfile(models.Model):
     )
 
     def __str__(self):
-        return f"Profile of {self.user.username}"
+        return self.username
 
 
 class ApiToken(models.Model):

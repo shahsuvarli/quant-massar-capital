@@ -1,18 +1,17 @@
 from django.urls import path
-from .api import UserProfilesApiView
+from .api import UserView
 from rest_framework.routers import DefaultRouter
+from .api import CustomTokenObtainPairView, LogoutApiView, RegisterView
+from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 
-# Use DRF's router for ViewSets
+
 app_name = 'accounts'
-# router = DefaultRouter()
-# router.register(r'accounts', AccountApiView, basename='accounts')  # Maps /api/items/
 
 urlpatterns = [
-    # Any non-ViewSet-specific URLs can go here
-    path('', UserProfilesApiView.as_view(), name='user_profiles'),
+    path('', UserView.as_view(), name='user_profiles'),
+    path('login/', CustomTokenObtainPairView.as_view(), name='login'),
+    path('logout/', LogoutApiView.as_view(), name='logout'),
+    path('refresh/', TokenRefreshView.as_view(), name='refresh'),
+    path('verify/', TokenVerifyView.as_view(), name='verify'),
+    path('register/', RegisterView.as_view(), name='register'),
 ]
-
-
-
-# Include the router-generated URLs
-# urlpatterns += router.urls

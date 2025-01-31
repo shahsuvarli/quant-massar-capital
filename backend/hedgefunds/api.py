@@ -4,6 +4,9 @@ from rest_framework import status
 from .models import Fund, Portfolio, HedgeFundCompany
 from .serializers import FundsAllSerializer, PortfolioAllSerializer, HedgeFundCompanySerializer
 from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+from trading.models import Trade
+import numpy as np
 
 
 class FundsApiView(APIView):

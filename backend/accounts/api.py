@@ -14,7 +14,6 @@ class UserView(APIView):
     @swagger_auto_schema(operation_description="Retrieve all accounts", responses={200: UserSerializer(many=True)})
     def get(self, request):
         users = User.objects.all()[0:20]
-        print(users)
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
 
@@ -23,7 +22,6 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     @swagger_auto_schema(operation_description="Login to get access token", responses={200: "Access token and refresh token"})
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
-        print(response.data)
         # response.data.update({
         #     "id": response.data["id"],
         #     "username": response.data["username"],

@@ -3,7 +3,7 @@
 import { AuthContext, AuthContextType } from '@/context/AuthContext'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { FormEvent, useContext, useState } from 'react'
+import { FormEvent, useContext, useEffect, useState } from 'react'
 
 function LoginForm() {
     const { user, loading, login } = useContext(AuthContext) as AuthContextType
@@ -16,11 +16,14 @@ function LoginForm() {
         login(username, password);
     }
 
+    useEffect(() => {
+        if (user) redirect('/')
+    }, [user])
+
     if (loading) {
         return <p>Loading...</p>
     }
 
-    if (user) redirect('/')
 
     return (
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark h-screen flex flex-col justify-center">

@@ -11,12 +11,10 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    // <>
     <ProtectedRoute>
       <DefaultLayout>
         <ECommerce />
       </DefaultLayout>
     </ProtectedRoute>
-    // </>
   );
 }

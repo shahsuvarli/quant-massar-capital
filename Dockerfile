@@ -1,42 +1,39 @@
-# Use official Python image
-FROM python:3.10
+# Use a slim Python image as the base
+FROM python:3.11-slim
+
+# Install system utilities and Node.js (using Node 16)
+RUN apt-get update && apt-get install -y curl gnupg && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    # Update npm to the latest major version to remove the notice
+    npm install -g npm@11.1.0 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
-WORKDIR /backend
+WORKDIR /app
 
-# Copy requirements and install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy both backend and frontend directories into the image
+COPY backend/ ./backend/
+COPY frontend/ ./frontend/
 
-# Copy application code
-COPY . .
+# --- Build the Django backend ---
+# Switch to the backend folder, upgrade pip, and install dependencies.
+WORKDIR /app/backend
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Expose FastAPI port
-EXPOSE 8000
+# --- Build the Next.js frontend ---
+# Switch to the frontend folder, install node modules, and build the app.
+WORKDIR /app/frontend
+RUN npm install --force && npm run build
 
-# Command to run the application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# --- Prepare the startup script ---
+# Go back to the project root and copy the startup script into the image.
+WORKDIR /app
+COPY start.sh .
+RUN chmod +x start.sh
 
-# Use Node.js as base image
-FROM node:18
+# Expose ports: Django (8000) and Next.js (3000)
+EXPOSE 8000 3000
 
-# Set working directory
-WORKDIR /frontend
-
-# Copy package.json and package-lock.json
-COPY ./frontend/package.json ./frontend/package-lock.json ./
-
-# Install dependencies
-RUN npm install --force
-
-# Copy application code
-COPY ./frontend .
-
-# Build the application
-RUN npm run build
-
-# Expose Next.js port
-EXPOSE 3000
-
-# Command to start the application
-CMD ["npm", "start"]
+# Start both services when the container launches.
+CMD ["./start.sh"]

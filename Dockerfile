@@ -1,39 +1,53 @@
-# Use a slim Python image as the base
-FROM python:3.11-slim
+# Use a slim Python image as the base for the backend
+FROM python:3.11-slim AS backend
 
-# Install system utilities and Node.js (using Node 16)
-RUN apt-get update && apt-get install -y curl gnupg && \
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs && \
-    # Update npm to the latest major version to remove the notice
-    npm install -g npm@11.1.0 && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+# Install system utilities
+RUN apt-get update && apt-get install -y curl gnupg && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
-WORKDIR /app
-
-# Copy both backend and frontend directories into the image
-COPY backend/ ./backend/
-COPY frontend/ ./frontend/
-
-# --- Build the Django backend ---
-# Switch to the backend folder, upgrade pip, and install dependencies.
+# Set backend working directory
 WORKDIR /app/backend
+
+# Copy backend files
+COPY backend/ .
+
+# Install Python dependencies
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# --- Build the Next.js frontend ---
-# Switch to the frontend folder, install node modules, and build the app.
+# Expose backend port
+EXPOSE 8000
+
+# Use a separate Node.js image for the frontend
+FROM node:20 AS frontend
+
+# Set frontend working directory
 WORKDIR /app/frontend
+
+# Copy frontend files
+COPY frontend/ .
+
+# Install dependencies and build the Next.js app
 RUN npm install --force && npm run build
 
-# --- Prepare the startup script ---
-# Go back to the project root and copy the startup script into the image.
+# Serve the Next.js app using a lightweight server
+RUN npm install -g serve
+
+# Expose frontend port
+EXPOSE 3000
+
+# Final stage to combine both services
+FROM python:3.11-slim
+
+# Set up the working directory
 WORKDIR /app
-COPY start.sh .
-RUN chmod +x start.sh
 
-# Expose ports: Django (8000) and Next.js (3000)
-EXPOSE 8000 3000
+# Copy backend from backend stage
+COPY --from=backend /app/backend /app/backend
 
-# Start both services when the container launches.
-CMD ["./start.sh"]
+# Copy frontend from frontend stage
+COPY --from=frontend /app/frontend /app/frontend
+
+# Environment variables for connecting to Supabase
+ENV DATABASE_URL="your_supabase_database_url"
+
+# Start Django backend and serve the Next.js frontend
+CMD ["sh", "-c", "cd /app/backend && python manage.py migrate && gunicorn app.wsgi:application --bind 0.0.0.0:8000"]

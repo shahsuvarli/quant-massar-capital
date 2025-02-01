@@ -1,35 +1,26 @@
+version: "3.8"
+
 services:
   backend:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        SERVICE: backend
-    container_name: backend
     ports:
       - "8000:8000"
-    volumes:
-      - ./backend:/app
     environment:
-      # Django/Supabase connection settings (adjust these to match your Supabase credentials)
-      - DB_NAME=postgres
-      - DB_USER=postgres.qwswrmbrmmpzmetdncxg
-      - DB_PASSWORD=kentud-0tasWy-kipqen
-      - DB_HOST=aws-0-eu-central-1.pooler.supabase.com
-      - DB_PORT=6543
-      # Other backend settings
-      - CORS_ORIGINS=http://localhost:3000
+      - DEBUG=False
+      - DATABASE_URL=your_supabase_database_url
+      - SECRET_KEY=your_django_secret_key
+    volumes:
+      - ./backend:/app/backend
 
   frontend:
     build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        SERVICE: frontend
-    container_name: frontend
+      context: ./frontend
     ports:
       - "3000:3000"
+    depends_on:
+      - backend
+    command: ["serve", "-s", "out", "-l", "3000"]
     volumes:
-      - ./frontend:/src
-    environment:
-      - NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
+      - ./frontend:/app/frontend

@@ -6,3 +6,5 @@ backend/app/.env.development
 backend/app/.env.production
 
 frontend/.env
+
+*.pyc

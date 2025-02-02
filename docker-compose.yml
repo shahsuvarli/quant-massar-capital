@@ -1,26 +1,14 @@
 version: "3.8"
 
 services:
-  backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  app:
+    build: .
+    container_name: fullstack_app
     ports:
-      - "8000:8000"
-    environment:
-      - DEBUG=False
-      - DATABASE_URL=your_supabase_database_url
-      - SECRET_KEY=your_django_secret_key
+      - "8000:8000" # Django API
+      - "3000:3000" # Next.js frontend
+    # environment:
+    #   - DATABASE_URL=postgres://your_user:your_password@your_external_db_host:5432/your_db_name
     volumes:
-      - ./backend:/app/backend
-
-  frontend:
-    build:
-      context: ./frontend
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
-    command: ["serve", "-s", "out", "-l", "3000"]
-    volumes:
-      - ./frontend:/app/frontend
+      - .:/app
+    restart: always

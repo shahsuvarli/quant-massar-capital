@@ -5,9 +5,8 @@ services:
     build: .
     container_name: fullstack_app
     ports:
-      - "8000:8000" # Django API
-      - "3000:3000" # Next.js frontend
-      - DATABASE_URL=postgresql://postgres:kentud-0tasWy-kipqen@db.qwswrmbrmmpzmetdncxg.supabase.co:5432/postgres
+      - "8000:8000"
+      - "3000:3000"
     volumes:
       - .:/app
     restart: always

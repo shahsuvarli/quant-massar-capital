@@ -3,6 +3,7 @@ import { UserProfile, columns } from "./columns"
 import { DataTable } from "./data-table"
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb"
 import { Metadata } from "next"
+import fetchAPI from "@/hooks/fetch"
 
 export const metadata: Metadata = {
     title: "User profiles | Quantm",
@@ -11,14 +12,15 @@ export const metadata: Metadata = {
 
 
 export default async function DemoPage() {
-    const data: UserProfile[] = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/accounts/`, {
-        method: 'GET',
-        cache: 'no-store',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+    const data: UserProfile[] = await fetchAPI(`http://localhost:8000/api/accounts/`, {
+        // method: 'GET',
+        // cache: 'no-store',
+        // headers: {
+        //     'Content-Type': 'application/json',
+        // },
     })
-        .then(res => res.json())
+    console.log(data)
+    // .then(res => res.json())
 
     return (
         <DefaultLayout>

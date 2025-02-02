@@ -5,14 +5,14 @@ import { ColumnDef } from "@tanstack/react-table"
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type UserProfile = {
-    id: number
+    id: string
     username: string
     email: string
     phone_number: string
     is_trader: boolean
     is_investor: boolean
     account_balance: string
-    risk_tolerance: "High" | "Medium" | "Low"
+    risk_tolerance: "HIGH" | "MEDIUM" | "LOW"
 
 }
 
